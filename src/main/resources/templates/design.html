@@ -7,7 +7,7 @@
 <body>
 	<h1>Design your taco!</h1>
 	<img th:src="@{/images/taco.jpg}" />
-	<form method="POST" th:object="${taco}">
+	<form method="POST" th:action="@{/design}" th:object="${taco}">
 		<div class="grid">
 			<div th:if="${#fields.hasErrors()}">
 				<span class="validationError">
@@ -60,7 +60,7 @@
 					  th:if="${#fields.hasErrors('name')}"
 					  th:errors="*{name}">Error</span> 
 				<br />
-				<button>Submit your taco</button>
+				<input type="submit" value="Submit your taco" />
 			</div>
 		</div>
 	</form>

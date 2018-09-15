@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
@@ -54,8 +55,11 @@ public class Order implements Serializable {
   @Digits(integer = 3, fraction = 0, message = "Invalid CVV. Must be 3 digits")
   private String ccCVV;
 
-  @ManyToMany(targetEntity = Taco.class)
+  @ManyToMany
   private List<Taco> tacos = new ArrayList<>();
+
+  @ManyToOne
+  private User user;
 
   public void addDesign(Taco saved) {
     tacos.add(saved);
