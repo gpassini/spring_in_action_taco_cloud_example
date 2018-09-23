@@ -34,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .permitAll().and().formLogin().loginPage("/login").defaultSuccessUrl("/design").and()
         .logout().logoutSuccessUrl("/");
     /* Needed if we want to use the H2 Console */
-    // http.csrf().disable();
-    // http.headers().frameOptions().disable();
+    http.csrf().ignoringAntMatchers("/h2-console/**");
+    http.headers().frameOptions().disable();
   }
 }

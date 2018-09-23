@@ -1,0 +1,45 @@
+#########
+# DEFAULT
+#########
+
+spring:
+# JPA
+  jpa:
+    hibernate:
+      ddl-auto: update
+# Security
+  security:
+    user:
+      name: buzz
+      password: infinity
+
+# Server
+server:
+  port: 8443
+  ssl: 
+    key-store: classpath:mykeys.jks
+    key-store-password: letmein
+    key-password: letmein
+
+# Logging
+logging:
+  level:
+    root: INFO
+    org.springframework.security: DEBUG
+
+# Application
+taco:
+  orders:
+    pageSize: 10
+
+---
+
+############
+# PRODUCTION
+############
+spring:
+  profiles: prod
+
+logging:
+  level:
+    tacos: WARN
