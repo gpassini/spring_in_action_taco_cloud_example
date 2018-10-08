@@ -1,8 +1,15 @@
 package tacos.web.rest;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +22,7 @@ import tacos.Taco;
 import tacos.data.TacoRepository;
 
 @RestController
-@RequestMapping(path = "/design", produces = "application/json")
+@RequestMapping(path = "/design", produces = MediaType.APPLICATION_JSON_VALUE)
 @CrossOrigin(origins = "*")
 public class DesignTacoRestController {
 
@@ -27,9 +34,14 @@ public class DesignTacoRestController {
   }
 
   @GetMapping("/recent")
-  public Iterable<Taco> recentTacos() {
-    // PageRequest page = PageRequest.of(0, 12, Sort.by("createdAt").descending());
-    return tacoRepository.findAll();
+  public Resources<TacoResource> recentTacos() {
+    PageRequest page = PageRequest.of(0, 12, Sort.by("createdAt").descending());
+    List<Taco> tacos = tacoRepository.findAll(page).getContent();
+    List<TacoResource> tacoResources = new TacoResourceAssembler().toResources(tacos);
+    Resources<TacoResource> recentResources = new Resources<>(tacoResources);
+    recentResources
+        .add(linkTo(methodOn(DesignTacoRestController.class).recentTacos()).withRel("recents"));
+    return recentResources;
   }
 
   @GetMapping("/{id}")
@@ -41,7 +53,7 @@ public class DesignTacoRestController {
     return null;
   }
 
-  @PostMapping(consumes = "application/json")
+  @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
   public Taco postTaco(@RequestBody Taco taco) {
     return tacoRepository.save(taco);

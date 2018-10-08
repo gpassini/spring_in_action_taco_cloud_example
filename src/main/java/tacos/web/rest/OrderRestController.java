@@ -3,6 +3,7 @@ package tacos.web.rest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,7 +31,7 @@ public class OrderRestController {
     return orderRepository.save(order);
   }
 
-  @PatchMapping(path = "/{orderId}", consumes = "application/json")
+  @PatchMapping(path = "/{orderId}", consumes = MediaType.APPLICATION_JSON_VALUE)
   public Order patchOrder(@PathVariable("orderId") Long orderId, @RequestBody Order patch) {
     Order order = orderRepository.findById(orderId).get();
     if (patch.getName() != null) {
