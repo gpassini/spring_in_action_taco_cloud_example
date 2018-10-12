@@ -12,6 +12,11 @@ spring:
     user:
       name: buzz
       password: infinity
+# Data
+  
+  data:
+    rest:
+      base-path: /api
 
 # Server
 server:

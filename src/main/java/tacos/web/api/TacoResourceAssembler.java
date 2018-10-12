@@ -1,4 +1,4 @@
-package tacos.web.rest;
+package tacos.web.api;
 
 import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
 import tacos.Taco;

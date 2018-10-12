@@ -1,4 +1,4 @@
-package tacos.web.rest;
+package tacos.web.api;
 
 import java.util.Date;
 import java.util.List;

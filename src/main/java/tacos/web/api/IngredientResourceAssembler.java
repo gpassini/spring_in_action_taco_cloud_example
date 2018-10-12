@@ -1,4 +1,4 @@
-package tacos.web.rest;
+package tacos.web.api;
 
 import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
 import tacos.Ingredient;
@@ -8,7 +8,7 @@ public class IngredientResourceAssembler
 
   public IngredientResourceAssembler() {
     // TODO: create IngredientRestController
-    super(DesignTacoRestController.class, IngredientResource.class);
+    super(RecentTacosController.class, IngredientResource.class);
   }
 
   @Override
