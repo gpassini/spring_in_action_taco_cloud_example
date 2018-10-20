@@ -44,14 +44,14 @@ taco:
 ############
 spring:
   profiles: prod
-  artemis:
-    host: artemis.tacocloud.com
-    port: 61617
-    user: tacoweb
+  rabbitmq:
+    host: rabbit.tacocloud.com
+    port: 5673
+    username: tacoweb
     password: l3tm31n
-  jms:
     template:
-      default-destination: tacocloud.order.queue
+      exchange: tacocloud.orders
+      routing-key: kitchens.central
 
 logging:
   level:
