@@ -37,6 +37,16 @@ taco:
   orders:
     pageSize: 10
 
+tacocloud:
+  email:
+    host: imap.tacocloud.com
+    mailbox: INBOX
+    username: taco-in-flow
+    password: 1L0v3T4c0s
+    pollRate: 10000
+  api:
+    url: http://api.tacocloud.com
+
 ---
 
 ############
