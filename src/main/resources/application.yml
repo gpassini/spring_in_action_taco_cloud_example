@@ -20,11 +20,7 @@ spring:
 
 # Server
 server:
-  port: 8443
-  ssl: 
-    key-store: classpath:mykeys.jks
-    key-store-password: letmein
-    key-password: letmein
+  port: 8080
 
 # Logging
 logging:
