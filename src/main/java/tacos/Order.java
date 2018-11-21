@@ -4,32 +4,30 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.PrePersist;
-import javax.persistence.Table;
+import java.util.UUID;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.CreditCardNumber;
+import org.springframework.data.cassandra.core.mapping.Column;
+import org.springframework.data.cassandra.core.mapping.PrimaryKey;
+import org.springframework.data.cassandra.core.mapping.Table;
+import com.datastax.driver.core.utils.UUIDs;
 import lombok.Data;
 
 @Data
-@Entity
-@Table(name = "Taco_Order")
+@Table("tacoorders")
 public class Order implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long id;
+  @PrimaryKey
+  private UUID id = UUIDs.timeBased();
 
-  private Date placedAt;
+  private Date placedAt = new Date();
+
+  @Column("user")
+  private UserUDT user;
 
   @NotBlank(message = "Name is required")
   private String name;
@@ -55,18 +53,10 @@ public class Order implements Serializable {
   @Digits(integer = 3, fraction = 0, message = "Invalid CVV. Must be 3 digits")
   private String ccCVV;
 
-  @ManyToMany
-  private List<Taco> tacos = new ArrayList<>();
+  @Column("tacos")
+  private List<TacoUDT> tacos = new ArrayList<>();
 
-  @ManyToOne
-  private User user;
-
-  public void addDesign(Taco saved) {
-    tacos.add(saved);
-  }
-
-  @PrePersist
-  public void placedAt() {
-    this.placedAt = new Date();
+  public void addDesign(TacoUDT saved) {
+    this.tacos.add(saved);
   }
 }

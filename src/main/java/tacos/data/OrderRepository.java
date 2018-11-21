@@ -1,15 +1,9 @@
 package tacos.data;
 
-import java.util.List;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.CrudRepository;
+import java.util.UUID;
+import org.springframework.data.cassandra.repository.ReactiveCassandraRepository;
 import tacos.Order;
-import tacos.User;
 
-public interface OrderRepository extends CrudRepository<Order, Long> {
+public interface OrderRepository extends ReactiveCassandraRepository<Order, UUID> {
 
-  List<Order> findByUserOrderByPlacedAtDesc(User user, Pageable pageable);
-
-  Page<Order> findAll(Pageable pageable);
 }
