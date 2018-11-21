@@ -2,12 +2,11 @@ package tacos;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.UUID;
-import org.springframework.data.cassandra.core.mapping.PrimaryKey;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import com.datastax.driver.core.utils.UUIDs;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,12 +15,13 @@ import lombok.RequiredArgsConstructor;
 @Data
 @NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
 @RequiredArgsConstructor
+@Document(collection = "users")
 public class User implements UserDetails {
 
   private static final long serialVersionUID = 1L;
 
-  @PrimaryKey
-  private UUID id = UUIDs.timeBased();
+  @Id
+  private String id;
 
   private final String username;
   private final String password;

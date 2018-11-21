@@ -1,9 +1,8 @@
 package tacos.data;
 
-import java.util.UUID;
-import org.springframework.data.cassandra.repository.ReactiveCassandraRepository;
+import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import tacos.Order;
 
-public interface OrderRepository extends ReactiveCassandraRepository<Order, UUID> {
+public interface OrderRepository extends ReactiveMongoRepository<Order, String> {
 
 }

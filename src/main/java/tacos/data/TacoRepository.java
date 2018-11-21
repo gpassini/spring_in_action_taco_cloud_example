@@ -1,9 +1,10 @@
 package tacos.data;
 
-import java.util.UUID;
-import org.springframework.data.cassandra.repository.ReactiveCassandraRepository;
+import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
+import reactor.core.publisher.Flux;
 import tacos.Taco;
 
-public interface TacoRepository extends ReactiveCassandraRepository<Taco, UUID> {
+public interface TacoRepository extends ReactiveMongoRepository<Taco, String> {
 
+  Flux<Taco> findByOrderByCreatedAtDesc();
 }

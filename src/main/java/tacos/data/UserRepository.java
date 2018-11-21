@@ -1,13 +1,10 @@
 package tacos.data;
 
-import java.util.UUID;
-import org.springframework.data.cassandra.repository.AllowFiltering;
-import org.springframework.data.cassandra.repository.ReactiveCassandraRepository;
+import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import reactor.core.publisher.Mono;
 import tacos.User;
 
-public interface UserRepository extends ReactiveCassandraRepository<User, UUID> {
+public interface UserRepository extends ReactiveMongoRepository<User, String> {
 
-  @AllowFiltering
   Mono<User> findByUsername(String username);
 }
